@@ -1,4 +1,5 @@
-# 写法1
+# priority_queue自定义优先级
+## 写法1
 ```C++
 #include<bits/stdc++.h>
 using namespace std;
@@ -29,7 +30,7 @@ int main() {
 } 
 ```
 
-# 写法2
+## 写法2
 
 ```C++
 #include<bits/stdc++.h>
