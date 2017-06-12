@@ -1,4 +1,4 @@
-# heap优化的Dijkstra
+# 堆优化的Dijkstra
 Dijkstra的过程：
 1. 初始化集合S，最短距离数组dist。
 2. p <- src
