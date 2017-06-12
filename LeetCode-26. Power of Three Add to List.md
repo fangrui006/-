@@ -1,8 +1,3 @@
-DescriptionSubmissionsSolutions
-Total Accepted: 88108
-Total Submissions: 221746
-Difficulty: Easy
-Contributor: LeetCode
 Given an integer, write a function to determine if it is a power of three.
 
 Follow up:
