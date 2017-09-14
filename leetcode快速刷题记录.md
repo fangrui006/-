@@ -86,3 +86,77 @@ public:
     }
 };
 ```
+
+12. Integer to Roman
+
+罗马数字表示：M D C L X V I，分别表示1000,500,100,50,10,5,1。
+给定一个数字1493 = 1000 + 400 + 90 + 3，每一位分别表示就是M CD XC III，合起来就是最终结果。
+特别的表示法就是4和9：4用减法表示为IV（5 - 1），9也用减法表示为IX（10 - 1）。
+```C++
+class Solution {
+public:
+    string intToRoman(int num) {
+        string M[] = {"", "M", "MM", "MMM"};
+        string C[] = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
+        string X[] = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+        string I[] = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+        return M[num / 1000] + C[(num / 100) % 10] + X[(num % 100) / 10] + I[num % 10];
+    }
+};
+```
+
+13. Roman to Integer
+罗马数字中大部分都是加法，少部分是减法。分开考虑即可。
+当s[i]表示的base比s[i+1]表示的base小的时候，他们组成的数字做减法。
+```C++
+class Solution {
+public:
+    int romanToInt(string s) {
+        vector<int> base(256, 0);
+        base['M'] = 1000; base['D'] = 500;
+        base['C'] = 100; base['L'] = 50;
+        base['X'] = 10; base['V'] = 5; base['I'] = 1;
+        int n = s.size(), res = 0, i = 0;
+        while (i < n) {
+            if (i != n - 1 && base[s[i]] < base[s[i + 1]]) {
+                res += (base[s[i + 1]] - base[s[i]]);
+                i += 2;
+            } else {
+                res += base[s[i]];
+                i++;
+            }
+        }
+        return res;
+    }
+};
+```
+
+14. Longest Common Prefix
+
+按列比较
+abcd
+abc
+abbc
+
+先比较第一列，所有的字符都是a；继续比较第二列，所有的字符都是b；再比较第三列，有不相同的字符。于是最长公共前缀就是ab。
+1. 具体操作起来：第一行为基准，所有行都跟第一行的字符作比较。
+2. corner case：第一行为空；传入的是空数组；每一行全都相等。
+
+```C++
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        if (strs.size() == 0 || strs[0].size() == 0) return "";
+        for (int j = 0; j < strs[0].size(); j++) {
+            char ch = strs[0][j];
+            for (int i = 1; i < strs.size(); i++) {
+                if (strs[i].size() <= j || strs[i][j] != ch) {
+                    return strs[0].substr(0, j);
+                }
+            }
+        }
+        return strs[0];
+    }
+};
+```
+
