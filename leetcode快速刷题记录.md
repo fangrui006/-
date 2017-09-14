@@ -62,3 +62,27 @@ public:
 ```
 如果计算过后溢出，逆运算得不到原来的值。
 -123 / 10 = -12 ... -3
+
+8. atoi   case太多
+
+9. Palindrome Number
+判断一个整数是不是回文数。直接reverse可能会导致溢出。所以reverse一半的数，判断左半边和右半边是不是相等。
+找一半的位置：x < reversedNum说明已经到达（偶数）或者刚超过（奇数）一半了。最后reversedNum可能和x位数相等，或者多一位（也可能多两位）。
+corner case：
+（1）4321->false：用上面的算法，最后x = 4, reversedNum = 123。虽然分割点并不在中间的位置，不过这种情况只会发生在非回文数上，而且return条件一定是false（因为reversedNum比x多两位）。
+（2）10000->false：最后x = 0, reversedNum = 1。结果返回为true，得到了错误答案。实际上，以0结尾的数都不是回文数，因为最高位不可能是0。所以这种情况可以在开头提前判断。
+（3）所有的负数都不是回文数。
+```C++
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0 || x != 0 && x % 10 == 0) return false;
+        int rev = 0;
+        while (x > rev) {
+            rev = rev * 10 + (x % 10);
+            x = x / 10;
+        }
+        return x == rev || x == rev / 10;
+    }
+};
+```
